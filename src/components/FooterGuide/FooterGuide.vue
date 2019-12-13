@@ -50,6 +50,7 @@
     bottom 0
     height 50px
     width 100%
+    background #fff
     .guide-item
       display flex
       flex-direction column
