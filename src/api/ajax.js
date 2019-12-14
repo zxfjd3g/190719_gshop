@@ -5,9 +5,11 @@
 3. 对请求体参数进行urlencode处理, 而不使用默认的json方式(后台接口不支持)
 4. 配置请求超时的时间
 5. 通过请求头携带token数据
+6. 请求loading
 */
 import axios from 'axios'
 import qs from 'qs'
+import { Indicator } from 'mint-ui'
 
 const instance = axios.create({
   // baseURL: 'http://localhost:4000', // 出跨域请求问题
@@ -17,7 +19,10 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use((config) => {
-  console.log('req interceptor')
+  
+  // 显示请求loading
+  Indicator.open()
+
   // 3. 对请求体参数进行urlencode处理, 而不使用默认的json方式(后台接口不支持)
   const data = config.data
   if (data instanceof Object) {
@@ -30,14 +35,16 @@ instance.interceptors.request.use((config) => {
 // 添加响应拦截器
 instance.interceptors.response.use(
   response => {
-    console.log('res interceptor')
-    
+    // 隐藏请求loading
+    Indicator.close()
     // return response
     // 2. 异步请求成功的数据不是response, 而是response.data
     return response.data
   },
   error => {
-
+    // 隐藏请求loading
+    Indicator.close()
+    
     // return Promise.reject(error)
     // 1. 统一处理请求异常
     alert('请求出错: ' + error.message)
