@@ -147,11 +147,24 @@
 
     },
 
-    mounted () {
+    async mounted () {
       // 分发异步action, 将数据从后台请求到vuex中
-      this.$store.dispatch('getCategorys')
-      this.$store.dispatch('getShops')
+      /* this.$store.dispatch('getCategorys', () => {// 数据已经变了
+        this.$nextTick(() => {
+          // swiper对象必须要在列表数据显示之后创建
+          // new Swiper ('.swiper-container', {
+          new Swiper (this.$refs.sc1, {
+            loop: true, // 循环模式选项
+            // 如果需要分页器
+            pagination: {
+              el: '.swiper-pagination',
+            }
+          }) 
+        })
+      }) */
 
+      this.$store.dispatch('getShops')
+      await this.$store.dispatch('getCategorys')  // dispatch返回的promise在数据更新且界面更新之后才成功
       // swiper对象必须要在列表数据显示之后创建
       // new Swiper ('.swiper-container', {
       new Swiper (this.$refs.sc1, {
@@ -160,7 +173,36 @@
         pagination: {
           el: '.swiper-pagination',
         }
-      }) 
+      })
+    },
+
+    /* 
+    解决swiper轮播不正常的问题?
+    方式1: watch + nextTick()
+    方式2: callback + nextTick()
+    方式3: 利用dipatch()返回的promise
+    */
+    watch: {
+      /* 
+      1. 更新数据
+      2. 立即同步调用监视回调函数
+      3. 异步更新界面
+      */
+      /* categorys () { // categorys变化: [] ==> [...]
+
+        // 将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新
+        this.$nextTick(() => {
+          // swiper对象必须要在列表数据显示之后创建
+          // new Swiper ('.swiper-container', {
+          new Swiper (this.$refs.sc1, {
+            loop: true, // 循环模式选项
+            // 如果需要分页器
+            pagination: {
+              el: '.swiper-pagination',
+            }
+          }) 
+        })
+      } */
     }
   }
 </script>
