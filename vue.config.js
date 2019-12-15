@@ -29,6 +29,7 @@ module.exports = { // 只能写vue封装的配置
   },
 
   devServer: {
+    open: true,
     proxy: {
       // 处理以/api开头路径的请求
       '/api': {
