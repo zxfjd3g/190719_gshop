@@ -87,7 +87,16 @@
 
     methods: {
       sendCode () {
-        alert('----')
+        // 进行倒计时效果显示
+        this.computeTime = 10
+        const intervalId = setInterval(() => {
+          this.computeTime--
+          if (this.computeTime===0) {
+            clearInterval(intervalId)
+          }
+        }, 1000);
+
+        // 发请求
       },
 
       async login () {

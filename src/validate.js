@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VeeValidate from 'vee-validate'
 import zh_CN from 'vee-validate/dist/locale/zh_CN'
 // 声明使用vue插件
-Vue.use(VeeValidate)
+Vue.use(VeeValidate) // v-validate / errors / $validator
 
 // 指定提示文本的为中文
 VeeValidate.Validator.localize('zh_CN', {
