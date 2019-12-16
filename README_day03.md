@@ -31,7 +31,7 @@
             如果token存在, 将token添加到请求头中: config.headers.Authorization = token
         d. 在响应拦截器中处理错误
             1). 如果error中没有response
-                判断error的status为401, 如果当前没有在登陆页面, 跳转到登陆页面
+                如果当前没有在登陆页面, 跳转到登陆页面
             2). 如果error中有response, 取出response中的status
                 status为: 401: token过期了, 退出登陆(清除local中的token和state中user与token), 并跳转到登陆页面
                 status为: 404: 提示访问的资源不存在

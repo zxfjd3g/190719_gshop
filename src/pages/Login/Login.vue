@@ -141,6 +141,7 @@
           if (result.code===0) {
             const user = result.data
             // 将user保存到vuex的state
+            this.$store.dispatch('saveUser', user) // 将user和token保存到state, 将token保存local
 
             // 跳转到个人中心
             this.$router.replace({path: '/profile'})
