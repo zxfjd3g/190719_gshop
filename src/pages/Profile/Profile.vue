@@ -101,6 +101,7 @@
 
   .profile //我的
     width 100%
+    overflow hidden
     .profile-number
       margin-top 45.5px
       .profile-link

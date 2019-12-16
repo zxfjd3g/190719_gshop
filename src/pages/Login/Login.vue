@@ -45,7 +45,11 @@
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码"
                   v-model="captcha" name="captcha" v-validate="{required: true,regex: /^[0-9a-zA-Z]{4}$/}">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <!-- 当前发送是一个跨域的http请求(不是ajax请求), 没有跨域的问题 -->
+                <img class="get_verification" src="http://localhost:4000/captcha" 
+                  alt="captcha" @click="updateCaptcha" ref="captcha">
+                <!-- 原本404, 利用代理服务器转发请求4000的后台接口 -->
+                <!-- <img class="get_verification" src="/api/captcha" alt="captcha"> -->
                 <span style="color: red;" v-show="errors.has('captcha')">{{ errors.first('captcha') }}</span>
               </section>
             </section>
@@ -63,11 +67,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { Toast, MessageBox } from 'mint-ui'
   export default {
     name: 'Login',
     data () {
       return {
-        isShowSms: true, // true: 显示短信登陆界面,  false: 显示密码登陆界面
+        isShowSms: false, // true: 显示短信登陆界面,  false: 显示密码登陆界面
         phone: '', // 手机号
         code: '', // 短信验证码
         name: '', // 用户名
@@ -86,17 +91,26 @@
     },
 
     methods: {
-      sendCode () {
+      async sendCode () {
         // 进行倒计时效果显示
         this.computeTime = 10
         const intervalId = setInterval(() => {
           this.computeTime--
-          if (this.computeTime===0) {
+          if (this.computeTime<=0) {
+            this.computeTime = 0
             clearInterval(intervalId)
           }
         }, 1000);
 
         // 发请求
+        const result = await this.$API.reqSendCode(this.phone)
+        if (result.code===0) {
+          Toast('验证码短信已发送');
+        } else {
+          // 停止倒计时
+          this.computeTime = 0
+          MessageBox('提示', result.msg || '发送失败');
+        }
       },
 
       async login () {
@@ -109,9 +123,35 @@
         }
 
         const success = await this.$validator.validateAll(names) // 对指定的所有表单项进行验证
+        // 如果验证通过, 发送登陆的请求
+        let result
         if (success) {
-          alert('发送登陆的请求')
+          const {isShowSms, phone, code, name, pwd, captcha} = this
+          if (isShowSms) {
+            // 短信登陆
+            result = await this.$API.reqSmsLogin({phone, code})
+          } else {
+            // 密码登陆
+            result = await this.$API.reqPwdLogin({name, pwd, captcha})
+            this.updateCaptcha() // 更新图形验证码
+            this.captcha = ''
+          }
+
+          // 根据请求的结果, 做不同响应处理
+          if (result.code===0) {
+            const user = result.data
+            // 将user保存到vuex的state
+
+            // 跳转到个人中心
+            this.$router.replace({path: '/profile'})
+          } else {
+            MessageBox('提示', result.msg)
+          }
         }
+      },
+
+      updateCaptcha () {
+        this.$refs.captcha.src = 'http://localhost:4000/captcha?time=' + Date.now()
       }
     }
   }
