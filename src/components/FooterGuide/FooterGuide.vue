@@ -4,7 +4,7 @@
       <span>
         <i class="iconfont icon-waimai"></i>
       </span>
-      <span>首页</span>
+      <span>{{$t('footer_home')}}</span>
     </span>
     <span class="guide-item" :class="{on: $route.path==='/search'}" @click="goto('/search')">
       <span>
