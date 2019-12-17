@@ -50,9 +50,16 @@
 
 ## 5. ShopGoods组件滑动相关
 ### 1). 基本滑动
-    下载并引入better-scroll@next
-    new BScroll(wrapDiv, {})
-    better-scroll禁用了原生的dom事件, 使用的是自定义事件, 而且默认不分发
+    下载:
+        better-scroll  // 1.x的版本 
+    编码: 
+        new BScroll(wrapDiv, {})
+    说明:
+        当内容的高度超过容器的高度时, 形成滑动
+        better-scroll禁用了原生的dom事件, 使用的是自定义事件, 而且默认不分发
+    优化: 
+        下载2.x版本: better-scroll@next
+        只打包使用的核心库, 没有使用的功能不打包
 
 ### 2). 滑动右侧列表, 左侧的当前分类会变化
     1). 设计一个计算属性: currentIndex代表当前分类的下标

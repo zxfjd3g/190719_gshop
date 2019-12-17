@@ -4,7 +4,7 @@
       <div class="menu-wrapper" ref="left">
         <ul>
           <!-- current -->
-          <li class="menu-item" v-for="(good, index) in goods" :key="good.name">
+          <li class="menu-item" v-for="(good, index) in goods" :key="good.name" :class="{current: index===currentIndex}">
             <span class="text bottom-border-1px">
               <img class="icon" :src="good.icon" v-if="good.icon">
               {{good.name}}
@@ -13,7 +13,7 @@
         </ul>
       </div>
       <div class="foods-wrapper" ref="right">
-        <ul>
+        <ul ref="rightUl">
           <li class="food-list-hook" v-for="(good, index) in goods" :key="index">
             <h1 class="title">{{good.name}}</h1>
             <ul>
@@ -48,16 +48,68 @@
   import BScroll from 'better-scroll'
   import {mapState} from 'vuex'
   export default {
-
+    data () {
+      return {
+        // 1). 右侧列表滑动的Y轴坐标: scrollY  在滑动过程中不断改变
+        scrollY: 0,
+        // 2). 右侧每个分类<li>的top值的数组tops: 第一次列表显示后统计后面不再变化
+        tops: []
+      }
+    },
     computed: {
-      ...mapState(['goods'])
+      ...mapState(['goods']),
+      currentIndex () {
+        const {scrollY, tops} = this
+        return tops.findIndex((top, index) => scrollY>=top && scrollY<tops[index+1])
+      }
+    },
+
+    methods: {
+      // 初始化滑动
+      initScroll () {
+        new BScroll(this.$refs.left, {})
+        const rightScroll = new BScroll(this.$refs.right, {
+          probeType: 1, // 非实时 / 触摸
+          // probeType: 2, // 实时 / 触摸
+          // probeType: 3 // 实时 / 触摸 / 惯性 / 编码
+        })
+
+        // 给右侧列表绑定scroll监听
+        rightScroll.on('scroll', ({x, y}) => {
+          console.log('scroll', x, y)
+          this.scrollY = Math.abs(y)
+        })
+
+        // 给右侧列表绑定scrollEnd监听
+        rightScroll.on('scrollEnd', ({x, y}) => {
+          console.log('scrollEnd', x, y)
+          this.scrollY = Math.abs(y)
+        })
+      },
+      /* 
+      统计右侧所有分类li的top的数组
+      */
+      initTops () {
+        const tops = []
+        let top = 0
+        tops.push(top)
+        const lis = Array.prototype.slice.call(this.$refs.rightUl.children)
+        lis.forEach(li => {
+          top += li.clientHeight
+          tops.push(top)
+        })
+
+        // 更新tops数据
+        this.tops = tops
+        console.log('tops', tops)
+      }
     },
 
     watch: {
       goods () { // goods数据有了
         this.$nextTick(() => {// 列表数据显示了
-          new BScroll(this.$refs.left, {})
-          new BScroll(this.$refs.right, {})
+          this.initScroll()
+          this.initTops()
         })
       }
     }
