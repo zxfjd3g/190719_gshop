@@ -38,6 +38,10 @@ export const reqSmsLogin = ({phone, code}) => ajax.post('/login_sms', {phone, co
 // 7. 自动登陆
 export const reqAutoLogin = () => ajax.get('/auto_login')
 
-ajax('/info').then(result => {
-  console.log('result', result)
-})
+
+// 获取goods
+export const reqGoods = () => ajax('/goods')
+// 获取ratings
+export const reqRatings = () => ajax('/ratings')
+// 获取info
+export const reqInfo = () => ajax('/info')
