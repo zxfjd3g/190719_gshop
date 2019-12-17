@@ -10,6 +10,7 @@ import store from './vuex/store'
 import './validate'
 import * as API from '@/api'
 import i18n from './i18n'
+import './mock/mock-server'
 
 // 将API对象挂载到Vue的原型对象上
 Vue.prototype.$API = API
