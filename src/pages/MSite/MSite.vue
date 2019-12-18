@@ -101,7 +101,14 @@
   export default {
 
     computed: {
-      ...mapState(['address', 'categorys', 'shops']),
+      ...mapState({
+        // address: 'address',  // 总state中没有address   
+        // categorys: 'categorys', 
+        // shops: 'shops'
+        address: state => state.msite.address, // state是总状态, 函数的返回就是计算属性值
+        categorys: state => state.msite.categorys, 
+        shops: state => state.msite.shops, 
+      }),
 
       /* 
       根据一维数组生成二维数组

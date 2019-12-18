@@ -1,28 +1,29 @@
 <template>
   <div class="cartcontrol">
     <transition name="move">
-      <div class="iconfont icon-remove_circle_outline" v-if="food.count>0" @click="updateFoodCount(false)"></div>
+      <div class="iconfont icon-remove_circle_outline" v-if="food.count>0" @click.stop="updateFoodCount(false)"></div>
     </transition>
     <div class="cart-count" v-if="food.count>0">{{food.count}}</div>
-    <div class="iconfont icon-add_circle" @click="updateFoodCount(true)"></div>
+    <div class="iconfont icon-add_circle" @click.stop="updateFoodCount(true)"></div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import throttle from 'lodash/throttle'
   export default {
     props: {
       food: Object
     },
 
     methods: {
-      updateFoodCount (isAdd) {
+      updateFoodCount: throttle(function (isAdd) { // 对处理事件的函数节流处理
         /* 
         问题1: 不应该直接在此更新, 这个不是当前组件的
         问题2: 开始count值是undefined
         */
         // this.food.count++
         this.$store.dispatch('updateFoodCount', {isAdd, food: this.food})
-      }
+      }, 1000)
     }
   }
 </script>
