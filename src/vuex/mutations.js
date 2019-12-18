@@ -2,6 +2,8 @@
 包含n个用于直接更新状态数据的方法的对象
 方法不可以包含异步和逻辑处理代码
 */
+import Vue from 'vue'
+
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
@@ -13,6 +15,8 @@ import {
   RECEIVE_INFO,
   RECEIVE_RATINGS,
   RECEIVE_GOODS,
+  ADD_FOOD_COUNT,
+  REDUCE_FOOD_COUNT
 } from './mutation-types'
 
 export default {
@@ -49,5 +53,24 @@ export default {
   
   [RECEIVE_GOODS](state, {goods}) {
     state.goods = goods
+  },
+
+  [ADD_FOOD_COUNT](state, {food}) {
+    if (food.count) { // food有count
+      food.count++
+    } else {
+      // 如果food中没有count, 给food添加count属性, 值为1
+      // 问题: 给响应式对象添加一个新的属性, 没有数据绑定效果(不是响应式的)
+      // food.count = 1
+      // 解决: 给响应式对象添加一个响应式属性  
+      // Vue.set( target, key, value )
+      Vue.set(food, 'count', 1)
+    }
+  },
+
+  [REDUCE_FOOD_COUNT](state, {food}) {
+    if (food.count>0) { // 只有数量大于0时
+      food.count--
+    }
   },
 }
