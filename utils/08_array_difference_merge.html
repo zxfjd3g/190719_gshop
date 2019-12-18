@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>difference和merge</title>
+</head>
+<body>
+  <!-- 
+    1. difference(arr): 得到当前数组中所有不在arr中的元素组成的数组(不改变原数组)
+          如: [1,3,5,7].difference([5, 8])  ==> [1, 3, 7]
+    2. merge(arr): 将指定arr与当前arr的元素进行合并组成一个新的数组(不改变原数组)
+          如: [1,3,5,7,5].merge([5, 8]) ==> [1, 3, 5, 7, 5, 8]
+  -->
+
+  <script>
+    Array.prototype.difference = function (arr) {
+      if (this.length===0) {
+        return []
+      } else if (arr.length===0) {
+        return this.slice()
+      }
+      return this.filter(item => arr.indexOf(item)===-1)
+    }
+    
+    Array.prototype.merge = function (arr) {
+      var result = this.slice()
+      if (!arr || arr.length===0) {
+        return result
+      }
+      arr.forEach(item => {
+        if (result.indexOf(item)===-1) {
+          result.push(item)
+        }
+      })
+      return result
+    }
+  </script>
+
+  <script>
+    console.log([1,3,5,7].difference([5, 8]))
+    console.log([1,3,5,7,5].merge([5, 8]))
+  </script>
+</body>
+</html>

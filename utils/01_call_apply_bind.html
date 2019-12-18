@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>函数的call/apply/bind()</title>
+</head>
+<body>
+
+  <!-- 
+    1. 区别call()/apply()/bind()
+      call()/apply(): 调用函数, 指定函数中的this为第一个参数的值
+      bind(obj): 返回一个新的函数, 新函数内部会调用原来的函数, 且this为第一参数的值
+
+    2. 自定义call()/apply()
+    3. 自定义实现bind()
+  -->
+  <script>
+    /* 自定义函数对象的call方法 */
+    Function.prototype.call = function (obj, ...args) {
+      // 如果传入的是null/undefined, this指定为window
+      obj = obj || window
+      // 给obj添加一个方法: 属性名任意, 属性值必须当前调用call的函数对象
+      obj.tempFn = this
+      // 通过obj调用这个方法
+      obj.tempFn(...args)
+      // 删除新添加的方法
+      delete obj.tempFn
+    }
+
+    /* 自定义函数对象的apply方法 */
+    Function.prototype.apply = function (obj, args) {
+      // 如果传入的是null/undefined, this指定为window
+      obj = obj || window
+      // 给obj添加一个方法: 属性名任意, 属性值必须当前调用call的函数对象
+      obj.tempFn = this
+      // 通过obj调用这个方法
+      obj.tempFn(...args)
+      // 删除新添加的方法
+      delete obj.tempFn
+    }
+
+    /* 
+      自定义函数对象的bind方法
+    */
+    Function.prototype.bind = function (obj, ...args) {
+      const that = this
+      return function (...args2) {
+        that.call(obj, ...args, ...args2)
+      }
+    }
+  </script>
+  
+  <script>
+    function fn(a, b) {
+      console.log(a, b, this)
+    }
+
+    const obj = {m: 1}
+
+    fn.call(obj, 2, 3)  // 相当于执行了obj.fn(2, 3)
+    fn.apply(obj, [2, 3])
+    fn.bind(obj)(2, 3)
+    fn.bind(obj, 4)(2, 3)
+  </script>
+
+</body>
+</html>

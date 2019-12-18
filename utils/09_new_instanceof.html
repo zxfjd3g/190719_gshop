@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自定义new与instanceof工具函数</title>
+</head>
+<body>
+  <script>
+    /* 
+    功能等同于new的工具函数
+    */
+    function newInstance(Fn, ...args) {
+      // 创建一个新的对象
+      const obj = {}
+      // 执行构造函数
+      const result = Fn.apply(obj, args) // 相当于: obj.Fn()
+      // 如果构造函数执行的结果是对象, 返回这个对象
+      if (result instanceof Object) {
+        return result
+      }
+      // 如果不是, 返回新创建的对象
+      return obj
+    }
+  </script>
+  <script>
+    function Person(name, age) {
+      this.name = name
+      this.age = age
+      return {}
+      // return []
+      // return function (){}
+      // return 1
+      // return undefined
+    }
+
+    const p = new Person('tom', 12)
+    console.log(p)
+
+    const p2 = newInstance(Person, 'Jack', 13)
+    console.log(p2)
+
+  </script>
+
+  <script>
+    /* 
+    功能等同于instanceof的工具函数
+     */
+     function instanceOf(instance, Type) {
+      while(instance.__proto__) {
+        if (instance.__proto__===Type.prototype) {
+          return true
+        }
+        instance = instance.__proto__
+      }
+      return false
+    }
+  </script>
+  <script>
+    console.log(instanceOf(p, Object), instanceOf(p, Person), instanceOf(instanceOf, Function))
+    console.log(instanceOf(p, String), instanceOf(p, Function))
+  </script>
+</body>
+</html>

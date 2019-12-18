@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>drop与dropRight</title>
+</head>
+<body>
+  <!-- 
+    1. drop(count): 得到当前数组过滤掉左边count个后剩余元素组成的数组
+          说明: 不改变当前数组, count默认是1
+          如: [1,3,5,7].drop(2) ===> [5, 7]
+    2. dropRight(count): 得到当前数组过滤掉右边count个后剩余元素组成的数组
+          说明: 不改变当前数组, count默认是1
+          如: [1,3,5,7].dropRight(2) ===> [1, 3]
+  -->
+
+  <script>
+    Array.prototype.drop = function (count) {
+      if (this.length === 0 || count >= this.length) {
+        return []
+      }
+      count = count || 1
+      
+      return this.filter((item, index) => index>=count)
+    }
+
+    Array.prototype.dropRight = function (count) {
+      if (this.length === 0 || count >= this.length) {
+        return []
+      }
+      count = count || 1
+
+      return this.filter((item, index) => index < this.length-count)
+    }
+  </script>
+
+  <script>
+    console.log([1,3,5,7].drop(2))
+    console.log([1,3,5,7].drop(4))
+    console.log([1,3,5,7].drop())
+
+    console.log([1,3,5,7].dropRight(2))
+    console.log([1,3,5,7].dropRight(4))
+    console.log([1,3,5,7].dropRight())
+  </script>
+</body>
+</html>
