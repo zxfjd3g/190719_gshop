@@ -13,6 +13,10 @@
       // 通知action异步获取address并保存到state
       this.$store.dispatch('getAddress')
       this.$store.dispatch('autoLogin')
+
+      window.addEventListener('unload', () => {
+        localStorage.setItem('unload_key', 'atguigu')
+      })
     },
 
     components: {

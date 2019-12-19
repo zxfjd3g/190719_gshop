@@ -46,11 +46,14 @@ export default [
     component: Login
   },
   {
-    path: '/shop',
+    name: 'shop',
+    path: '/shop/:id',
     component: Shop,
+    props: true,
     children: [
       {
-        path: '/shop/goods',
+        name: 'goods',
+        path: 'goods',
         component: Goods
       },
       {
@@ -58,13 +61,21 @@ export default [
         component: Ratings
       },
       {
-        path: '/shop/info',
+        path: 'info',
         component: Info
       },
+
       {
         path: '',
-        redirect: '/shop/goods'
-      }
+        redirect: (to) => {
+          console.log('to', to)
+          return to.path + '/goods'
+        }
+        /* 
+        redirect: {
+          name: 'goods'
+        } */
+      },
     ]
   },
 

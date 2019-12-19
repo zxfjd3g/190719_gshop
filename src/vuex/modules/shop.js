@@ -8,25 +8,28 @@ import {
   RECEIVE_GOODS,
   ADD_FOOD_COUNT,
   REDUCE_FOOD_COUNT,
-  CLEAR_CART
+  CLEAR_CART,
+  RECEIVE_SHOP
 } from '../mutation-types'
 
 import {
   reqGoods,
   reqRatings,
-  reqInfo
+  reqInfo,
+  reqShop
 } from '@/api'
+
+import {getCartFoods} from '@/utils'
 
 
 export default  {
   state: { 
-    goods: [], // 商品列表
-    ratings: [], // 商家评价列表
-    info: {}, // 商家信息
+    shop: {}, // 某个商家对象
     cartFoods: [], // 购物车中所有food数组
   },
+
   mutations: {
-    [RECEIVE_INFO](state, {info}) {
+    /* [RECEIVE_INFO](state, {info}) {
       state.info = info
     },
     
@@ -36,6 +39,13 @@ export default  {
     
     [RECEIVE_GOODS](state, {goods}) {
       state.goods = goods
+    }, */
+
+    [RECEIVE_SHOP] (state, {shop={}, cartFoods}) {
+      state.shop = shop
+      if (shop.id) {
+        state.cartFoods = cartFoods
+      }
     },
   
     [ADD_FOOD_COUNT](state, {food}) {
@@ -71,8 +81,11 @@ export default  {
     }
   },
   actions: {
-    // 异步获取商家信息
-    async getShopInfo({commit}, cb) {
+    /* // 异步获取商家信息
+    async getShopInfo({commit, state}, cb) {
+      // 如果数据已经有了不用再请求获取
+      if (state.info.name) return
+
       const result = await reqInfo()
       if(result.code===0) {
         const info = result.data
@@ -83,7 +96,10 @@ export default  {
     },
 
     // 异步获取商家评价列表
-    async getShopRatings({commit}, cb) {
+    async getShopRatings({commit, state}, cb) {
+      // 如果数据已经有了不用再请求获取
+      if (state.ratings.length>0) return
+
       const result = await reqRatings()
       if(result.code===0) {
         const ratings = result.data
@@ -94,13 +110,34 @@ export default  {
     },
 
     // 异步获取商家商品列表
-    async getShopGoods({commit}, cb) {
+    async getShopGoods({commit, state}, cb) {
+      // 如果数据已经有了不用再请求获取
+      if (state.goods.length>0) return
+
       const result = await reqGoods()
       if(result.code===0) {
         const goods = result.data
         commit(RECEIVE_GOODS, {goods})
         // 如果组件中传递了接收消息的回调函数, 数据更新后, 调用回调通知调用的组件
         typeof cb==='function' && cb()
+      }
+    }, */
+
+    /* 
+    获取指定商家的异步action
+    */
+    async getShop ({commit, state}, id) {
+      if (state.shop.id==id) return
+
+      if (state.shop.id) {
+        commit(RECEIVE_SHOP, {})
+      }
+
+      const result = await reqShop(id)
+      if (result.code===0) {
+        const shop = result.data
+        const cartFoods = getCartFoods(shop)
+        commit(RECEIVE_SHOP, {shop, cartFoods})
       }
     },
 

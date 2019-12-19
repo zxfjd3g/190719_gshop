@@ -75,6 +75,7 @@
       "icon": "https://fuss10.elemecdn.com/b/91/8cf4f67e0e8223931cd595dc932fepng.png",
       "foods": [
         {
+          "id": 1,
           "name": "南瓜粥",
           "price": 9,
           "oldPrice": "",
@@ -114,6 +115,7 @@
           ]
         },
         {
+          "id": 2,
           "name": "红豆薏米美肤粥",
           "price": 12,
           "oldPrice": "",
@@ -153,6 +155,7 @@
           ]
         },
         {
+          "id": 3,
           "name": "八宝酱菜",
           "price": 4,
           "oldPrice": "",
@@ -187,6 +190,7 @@
           "image": "http://fuss10.elemecdn.com/9/b5/469d8854f9a3a03797933fd01398bjpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 4,
           "name": "扁豆焖面",
           "price": 14,
           "oldPrice": "",
@@ -221,6 +225,7 @@
           "image": "http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 5,
           "name": "葱花饼",
           "price": 10,
           "oldPrice": "",
@@ -255,6 +260,7 @@
           "image": "http://fuss10.elemecdn.com/f/28/a51e7b18751bcdf871648a23fd3b4jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 6,
           "name": "牛肉馅饼",
           "price": 14,
           "oldPrice": "",
@@ -289,6 +295,7 @@
           "image": "http://fuss10.elemecdn.com/d/b9/bcab0e8ad97758e65ae5a62b2664ejpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 7,
           "name": "招牌猪肉白菜锅贴/10个",
           "price": 17,
           "oldPrice": "",
@@ -329,6 +336,7 @@
       "icon": "https://fuss10.elemecdn.com/0/6a/05b267f338acfeb8bd682d16e836dpng.png",
       "foods": [
         {
+          "id": 8,
           "name": "娃娃菜炖豆腐",
           "price": 17,
           "oldPrice": "",
@@ -356,6 +364,7 @@
           "image": "http://fuss10.elemecdn.com/d/2d/b1eb45b305635d9dd04ddf157165fjpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 9,
           "name": "手撕包菜",
           "price": 16,
           "oldPrice": "",
@@ -383,6 +392,7 @@
           "image": "http://fuss10.elemecdn.com/9/c6/f3bc84468820121112e79583c24efjpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 10,
           "name": "香酥黄金鱼/3条",
           "price": 11,
           "oldPrice": "",
@@ -415,6 +425,7 @@
       "name": "香浓甜粥",
       "foods": [
         {
+          "id": 11,
           "name": "红枣山药粥",
           "price": 29,
           "oldPrice": 36,
@@ -435,6 +446,7 @@
           "image": "http://fuss10.elemecdn.com/6/72/cb844f0bb60c502c6d5c05e0bddf5jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 12,
           "name": "红豆粥",
           "price": 14,
           "oldPrice": 36,
@@ -455,6 +467,7 @@
           "image": "http://fuss10.elemecdn.com/6/72/cb844f0bb60c502c6d5c05e0bddf5jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 13,
           "name": "红枣山药糙米粥",
           "price": 10,
           "oldPrice": "",
@@ -489,6 +502,7 @@
           "image": "http://fuss10.elemecdn.com/9/b5/469d8854f9a3a03797933fd01398bjpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 14,
           "name": "糊塌子",
           "price": 10,
           "oldPrice": "",
@@ -528,6 +542,7 @@
       "name": "营养咸粥",
       "foods": [
         {
+          "id": 15,
           "name": "田园蔬菜粥",
           "price": 8,
           "oldPrice": 10,
@@ -560,6 +575,7 @@
       "name": "爽口凉菜",
       "foods": [
         {
+          "id": 6,
           "name": "八宝酱菜",
           "price": 4,
           "oldPrice": "",
@@ -594,6 +610,7 @@
           "image": "http://fuss10.elemecdn.com/9/b5/469d8854f9a3a03797933fd01398bjpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 17,
           "name": "拍黄瓜",
           "price": 9,
           "oldPrice": "",
@@ -633,6 +650,7 @@
       "name": "精选套餐",
       "foods": [
         {
+          "id": 18,
           "name": "红豆薏米粥套餐",
           "price": 37,
           "oldPrice": "",
@@ -653,6 +671,7 @@
           "image": "http://fuss10.elemecdn.com/f/49/27f26ed00c025b2200a9ccbb7e67ejpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 19,
           "name": "皮蛋瘦肉粥套餐",
           "price": 31,
           "oldPrice": "",
@@ -678,6 +697,7 @@
       "name": "果拼果汁",
       "foods": [
         {
+          "id": 20,
           "name": "蜜瓜圣女萝莉杯",
           "price": 6,
           "oldPrice": "",
@@ -690,6 +710,7 @@
           "image": "http://fuss10.elemecdn.com/b/5f/b3b04c259d5ec9fa52e1856ee50dajpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 21,
           "name": "加多宝",
           "price": 6,
           "oldPrice": "",
@@ -724,6 +745,7 @@
           "image": "http://fuss10.elemecdn.com/b/9f/5e6c99c593cf65229225c5661bcdejpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 22,
           "name": "VC无限橙果汁",
           "price": 8,
           "oldPrice": 10,
@@ -756,6 +778,7 @@
       "name": "小吃主食",
       "foods": [
         {
+          "id": 23,
           "name": "扁豆焖面",
           "price": 14,
           "oldPrice": "",
@@ -790,6 +813,7 @@
           "image": "http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 24,
           "name": "葱花饼",
           "price": 10,
           "oldPrice": "",
@@ -824,6 +848,7 @@
           "image": "http://fuss10.elemecdn.com/f/28/a51e7b18751bcdf871648a23fd3b4jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 25,
           "name": "牛肉馅饼",
           "price": 14,
           "oldPrice": "",
@@ -858,6 +883,7 @@
           "image": "http://fuss10.elemecdn.com/d/b9/bcab0e8ad97758e65ae5a62b2664ejpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 26,
           "name": "招牌猪肉白菜锅贴/10个",
           "price": 17,
           "oldPrice": "",
@@ -892,6 +918,7 @@
           "image": "http://fuss10.elemecdn.com/7/72/9a580c1462ca1e4d3c07e112bc035jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 27,
           "name": "糊塌子",
           "price": 10,
           "oldPrice": "",
@@ -931,6 +958,7 @@
       "name": "特色粥品",
       "foods": [
         {
+          "id": 28,
           "name": "皮蛋瘦肉粥",
           "price": 10,
           "oldPrice": "",
@@ -964,6 +992,7 @@
           "image": "http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 29,
           "name": "南瓜粥",
           "price": 9,
           "oldPrice": "",
@@ -998,6 +1027,7 @@
           "image": "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 30,
           "name": "红豆薏米美肤粥",
           "price": 12,
           "oldPrice": "",
@@ -1032,6 +1062,7 @@
           "image": "http://fuss10.elemecdn.com/d/22/260bd78ee6ac6051136c5447fe307jpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 31,
           "name": "红枣山药糙米粥",
           "price": 10,
           "oldPrice": "",
@@ -1066,6 +1097,7 @@
           "image": "http://fuss10.elemecdn.com/9/b5/469d8854f9a3a03797933fd01398bjpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 32,
           "name": "鲜蔬菌菇粥",
           "price": 11,
           "oldPrice": "",
@@ -1099,6 +1131,7 @@
           "image": "http://fuss10.elemecdn.com/e/a3/5317c68dd618929b6ac05804e429ajpeg.jpeg?imageView2/1/w/750/h/750"
         },
         {
+          "id": 33,
           "name": "田园蔬菜粥",
           "price": 10,
           "oldPrice": "",

@@ -3,13 +3,13 @@
     <ShopHeader/>
     <div class="tab">
       <div class="tab-item">
-        <router-link to="/shop/goods" replace>点餐</router-link>
+        <router-link :to="`/shop/${id}/goods`" replace>点餐</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/shop/ratings" replace>评价</router-link>
+        <router-link :to="`/shop/${id}/ratings`" replace>评价</router-link>
       </div>
       <div class="tab-item">
-        <router-link to="/shop/info" replace>商家</router-link>
+        <router-link :to="`/shop/${id}/info`" replace>商家</router-link>
       </div>
     </div>
     <router-view></router-view>
@@ -17,13 +17,37 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { mapState } from 'vuex'
   import ShopHeader from '@/components/ShopHeader/ShopHeader'
+  import {saveCartCounts} from '@/utils'
+
   export default {
+    props: ['id'],
 
     mounted () {
-      this.$store.dispatch('getShopInfo')
-      this.$store.dispatch('getShopGoods')
-      this.$store.dispatch('getShopRatings')
+      // this.$store.dispatch('getShopInfo')
+      // this.$store.dispatch('getShopGoods')
+      // this.$store.dispatch('getShopRatings')
+      
+      // console.log(this.$route.params.id, this.id)
+      // this.$store.dispatch('getShop', this.$route.params.id)
+      this.$store.dispatch('getShop', this.id)
+
+      window.addEventListener('beforeunload', () => {
+        const {shop:{id}, cartFoods} = this.shop
+        saveCartCounts(id, cartFoods)
+      })
+    },
+
+    computed: {
+      ...mapState({
+        shop: state => state.shop
+      })
+    },
+
+    beforeDestroy () {
+      const {shop:{id}, cartFoods} = this.shop
+      saveCartCounts(id, cartFoods)
     },
 
     components: {

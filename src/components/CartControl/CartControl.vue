@@ -1,10 +1,10 @@
 <template>
   <div class="cartcontrol">
     <transition name="move">
-      <div class="iconfont icon-remove_circle_outline" v-if="food.count>0" @click.stop="updateFoodCount(false)"></div>
+      <div class="iconfont icon-remove_circle_outline" v-if="food.count>0" @click.stop="updateFoodCount2(false)"></div>
     </transition>
     <div class="cart-count" v-if="food.count>0">{{food.count}}</div>
-    <div class="iconfont icon-add_circle" @click.stop="updateFoodCount(true)"></div>
+    <div class="iconfont icon-add_circle" @click.stop="updateFoodCount2(true)"></div>
   </div>
 </template>
 
@@ -16,14 +16,20 @@
     },
 
     methods: {
+      updateFoodCount2 (isAdd) {
+        console.log('updateFoodCount2()')
+        this.$store.dispatch('updateFoodCount', {isAdd, food: this.food})
+      },
+
       updateFoodCount: throttle(function (isAdd) { // 对处理事件的函数节流处理
+        console.log('add...')
         /* 
         问题1: 不应该直接在此更新, 这个不是当前组件的
         问题2: 开始count值是undefined
         */
         // this.food.count++
         this.$store.dispatch('updateFoodCount', {isAdd, food: this.food})
-      }, 1000)
+      }, 500, {trailing: false})
     }
   }
 </script>
