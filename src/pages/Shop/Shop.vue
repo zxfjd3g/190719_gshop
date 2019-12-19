@@ -3,7 +3,8 @@
     <ShopHeader/>
     <div class="tab">
       <div class="tab-item">
-        <router-link :to="`/shop/${id}/goods`" replace>点餐</router-link>
+        <!-- <router-link :to="`/shop/${id}/goods`" replace>点餐</router-link> -->
+        <router-link :to="{name: 'goods'}" replace>点餐</router-link>
       </div>
       <div class="tab-item">
         <router-link :to="`/shop/${id}/ratings`" replace>评价</router-link>
