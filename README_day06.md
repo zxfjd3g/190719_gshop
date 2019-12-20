@@ -35,3 +35,5 @@
     解决:
         利用窗口卸载的监听来保存cart数据
         在Shop组件的mounted中给window绑定unload监听, 保存当前的cart数据到sessionStorage
+
+## 
