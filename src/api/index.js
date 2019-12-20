@@ -49,4 +49,4 @@ export const reqInfo = () => ajax('/info')
 // 获取指定shop
 export const reqShop = (id) => ajax('/shop/' + id)
 
-reqShop(4)
+// reqShop(4)

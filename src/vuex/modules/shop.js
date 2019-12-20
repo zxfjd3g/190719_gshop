@@ -8,24 +8,25 @@ import {
   RECEIVE_GOODS,
   ADD_FOOD_COUNT,
   REDUCE_FOOD_COUNT,
-  CLEAR_CART
+  CLEAR_CART,
+  RECEIVE_SHOP
 } from '../mutation-types'
 
 import {
-  reqGoods,
-  reqRatings,
-  reqInfo
+  // reqGoods,
+  // reqRatings,
+  // reqInfo,
+  reqShop,
 } from '@/api'
 
 
 export default  {
   state: { 
-    goods: [], // 商品列表
-    ratings: [], // 商家评价列表
-    info: {}, // 商家信息
+    shop: {}, // 当前商家
     cartFoods: [], // 购物车中所有food数组
   },
   mutations: {
+    /* 
     [RECEIVE_INFO](state, {info}) {
       state.info = info
     },
@@ -36,6 +37,15 @@ export default  {
     
     [RECEIVE_GOODS](state, {goods}) {
       state.goods = goods
+    }, */
+
+    /* 
+    1. 接收一个新的数据
+    2. 重置数据: 利用形参默认值
+    */
+    [RECEIVE_SHOP] (state, {shop={}, cartFoods=[]}) {
+      state.shop = shop
+      state.cartFoods = cartFoods
     },
   
     [ADD_FOOD_COUNT](state, {food}) {
@@ -71,7 +81,7 @@ export default  {
     }
   },
   actions: {
-    // 异步获取商家信息
+    /* // 异步获取商家信息
     async getShopInfo({commit}, cb) {
       const result = await reqInfo()
       if(result.code===0) {
@@ -102,7 +112,32 @@ export default  {
         // 如果组件中传递了接收消息的回调函数, 数据更新后, 调用回调通知调用的组件
         typeof cb==='function' && cb()
       }
+    }, */
+
+    /* 
+    根据id获取对应的商家的异步action
+    */
+    async getShop({commit, state}, id) {
+     
+      // 如果指定id与原有的商家id相同, 不需要发请求
+      if (id==state.shop.id) {
+        return
+      }
+
+      // 当前显示的是另一个商家, 清除原本的数据
+      if (state.shop.id) {
+        commit(RECEIVE_SHOP, {}) // 空容器中不带shop对象
+      }
+      // console.log('准备发请求')
+      
+      // 发请求获取对应商家并更新数据
+      const result = await reqShop(id)
+      if(result.code===0) {
+        const shop = result.data
+        commit(RECEIVE_SHOP, {shop})
+      }
     },
+
 
     /* 
     更新food中的数量的同步action

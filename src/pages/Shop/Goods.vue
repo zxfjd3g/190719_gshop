@@ -67,7 +67,7 @@
     },
     computed: {
       ...mapState({
-        goods: state => state.shop.goods
+        goods: state => state.shop.shop.goods || []
       }),
       currentIndex () {
         const {scrollY, tops} = this
@@ -86,27 +86,33 @@
     methods: {
       // 初始化滑动
       _initScroll () {
-        this.leftScroll = new BScroll(this.$refs.left, {
-          click: true, // 分发自定义的click事件
-        })
-        this.rightScroll = new BScroll(this.$refs.right, {
-          click: true,
-          probeType: 1, // 非实时 / 触摸
-          // probeType: 2, // 实时 / 触摸
-          // probeType: 3 // 实时 / 触摸 / 惯性 / 编码
-        })
+        if (!this.leftScroll) {
+          console.log('创建scroll对象')
+          this.leftScroll = new BScroll(this.$refs.left, {
+            click: true, // 分发自定义的click事件
+          })
+          this.rightScroll = new BScroll(this.$refs.right, {
+            click: true,
+            probeType: 1, // 非实时 / 触摸
+            // probeType: 2, // 实时 / 触摸
+            // probeType: 3 // 实时 / 触摸 / 惯性 / 编码
+          })
 
-        // 给右侧列表绑定scroll监听
-        this.rightScroll.on('scroll', ({x, y}) => {
-          console.log('scroll', x, y)
-          this.scrollY = Math.abs(y)
-        })
+          // 给右侧列表绑定scroll监听
+          this.rightScroll.on('scroll', ({x, y}) => {
+            console.log('scroll', x, y)
+            this.scrollY = Math.abs(y)
+          })
 
-        // 给右侧列表绑定scrollEnd监听
-        this.rightScroll.on('scrollEnd', ({x, y}) => {
-          console.log('scrollEnd', x, y)
-          this.scrollY = Math.abs(y)
-        })
+          // 给右侧列表绑定scrollEnd监听
+          this.rightScroll.on('scrollEnd', ({x, y}) => {
+            console.log('scrollEnd', x, y)
+            this.scrollY = Math.abs(y)
+          })
+        } else {
+          this.leftScroll.refresh()
+          this.rightScroll.refresh()
+        }
       },
       /* 
       统计右侧所有分类li的top的数组
@@ -149,8 +155,18 @@
       } 
     },
 
+    mounted () {
+      // 如果数据已经有了, 直接做初始化的操作
+      if (this.goods.length>0) {
+        // console.log('mounted goods')
+        this._initScroll()
+        this._initTops()
+      }
+    },
+
     watch: {
       goods () { // goods数据有了
+        // console.log('watch goods')
         this.$nextTick(() => {// 列表数据显示了
           this._initScroll()
           this._initTops()

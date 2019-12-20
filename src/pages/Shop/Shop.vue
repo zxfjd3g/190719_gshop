@@ -23,14 +23,17 @@
     props: ['id'],
 
     mounted () {
-      this.$store.dispatch('getShopInfo')
-      this.$store.dispatch('getShopGoods')
-      this.$store.dispatch('getShopRatings')
+      // this.$store.dispatch('getShopInfo')
+      // this.$store.dispatch('getShopGoods')
+      // this.$store.dispatch('getShopRatings')
 
       // 得到当前请求的商家ID
       // const id = this.$route.params.id
       const id = this.id
-      console.log('id', id)
+      // console.log('id', id)
+
+      // 分发action请求商家数据
+      this.$store.dispatch('getShop', id)
     },
 
     components: {
