@@ -26,7 +26,7 @@
           </div>
           <div class="list-content" ref="foods">
             <ul>
-              <li class="food" v-for="(food) in cartFoods" :key="food.id">
+              <li class="food" v-for="(food) in cartFoods" :key="food.name">
                 <span class="name">{{food.name}}</span>
                 <div class="price"><span>￥{{food.price}}</span></div>
                 <div class="cartcontrol-wrapper">
@@ -61,7 +61,7 @@
     computed: {
       ...mapState({
         cartFoods: state => state.shop.cartFoods,
-        info: state => state.shop.shop.info || {},
+        info: state => state.shop.info,
       }),
       ...mapGetters(['totalCount', 'totalPrice']),
 

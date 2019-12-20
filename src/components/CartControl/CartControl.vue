@@ -16,11 +16,17 @@
     },
 
     methods: {
-      updateFoodCount2 (isAdd) {
-        console.log('updateFoodCount2()')
+      // 没节流限制
+      updateFoodCount2: function (isAdd) { // 对处理事件的函数节流处理
+        console.log('add22...')
+        /* 
+        问题1: 不应该直接在此更新, 这个不是当前组件的
+        问题2: 开始count值是undefined
+        */
+        // this.food.count++
         this.$store.dispatch('updateFoodCount', {isAdd, food: this.food})
       },
-
+      // 有节流
       updateFoodCount: throttle(function (isAdd) { // 对处理事件的函数节流处理
         console.log('add...')
         /* 
@@ -29,7 +35,7 @@
         */
         // this.food.count++
         this.$store.dispatch('updateFoodCount', {isAdd, food: this.food})
-      }, 500, {trailing: false})
+      }, 1000, {trailing: false}) // 在1s内多次点击, 只响应第一次点击(默认是响应2次, 且第2是在过了1s后才响应)
     }
   }
 </script>

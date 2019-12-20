@@ -67,7 +67,7 @@
     },
     computed: {
       ...mapState({
-        goods: state => state.shop.shop.goods || []
+        goods: state => state.shop.goods
       }),
       currentIndex () {
         const {scrollY, tops} = this
@@ -83,43 +83,30 @@
       }
     },
 
-    mounted () {
-      if (this.goods.length>0) {
-        this._initScroll()
-        this._initTops()
-      }
-    },
-
     methods: {
       // 初始化滑动
       _initScroll () {
-        console.log('_initScroll()')
-        if (!this.leftScroll) {
-          this.leftScroll = new BScroll(this.$refs.left, {
-            click: true, // 分发自定义的click事件
-          })
-          this.rightScroll = new BScroll(this.$refs.right, {
-            click: true,
-            probeType: 1, // 非实时 / 触摸
-            // probeType: 2, // 实时 / 触摸
-            // probeType: 3 // 实时 / 触摸 / 惯性 / 编码
-          })
+        this.leftScroll = new BScroll(this.$refs.left, {
+          click: true, // 分发自定义的click事件
+        })
+        this.rightScroll = new BScroll(this.$refs.right, {
+          click: true,
+          probeType: 1, // 非实时 / 触摸
+          // probeType: 2, // 实时 / 触摸
+          // probeType: 3 // 实时 / 触摸 / 惯性 / 编码
+        })
 
-          // 给右侧列表绑定scroll监听
-          this.rightScroll.on('scroll', ({x, y}) => {
-            console.log('scroll', x, y)
-            this.scrollY = Math.abs(y)
-          })
+        // 给右侧列表绑定scroll监听
+        this.rightScroll.on('scroll', ({x, y}) => {
+          console.log('scroll', x, y)
+          this.scrollY = Math.abs(y)
+        })
 
-          // 给右侧列表绑定scrollEnd监听
-          this.rightScroll.on('scrollEnd', ({x, y}) => {
-            console.log('scrollEnd', x, y)
-            this.scrollY = Math.abs(y)
-          })
-        } else {
-          this.leftScroll.refresh()
-          this.rightScroll.refresh()
-        }
+        // 给右侧列表绑定scrollEnd监听
+        this.rightScroll.on('scrollEnd', ({x, y}) => {
+          console.log('scrollEnd', x, y)
+          this.scrollY = Math.abs(y)
+        })
       },
       /* 
       统计右侧所有分类li的top的数组
@@ -180,6 +167,7 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
+
   .goods
     display: flex
     position: absolute
