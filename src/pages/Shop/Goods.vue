@@ -158,7 +158,7 @@
     mounted () {
       // 如果数据已经有了, 直接做初始化的操作
       if (this.goods.length>0) {
-        // console.log('mounted goods')
+        console.log('mounted goods')
         this._initScroll()
         this._initTops()
       }
@@ -166,7 +166,7 @@
 
     watch: {
       goods () { // goods数据有了
-        // console.log('watch goods')
+        console.log('watch goods', this.goods)
         this.$nextTick(() => {// 列表数据显示了
           this._initScroll()
           this._initTops()
