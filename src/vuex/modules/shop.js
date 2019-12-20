@@ -19,11 +19,13 @@ import {
   reqShop,
 } from '@/api'
 
+import {getCartFoods} from '@/utils'
+
 
 export default  {
   state: { 
     shop: {}, // 当前商家
-    cartFoods: [], // 购物车中所有food数组
+    cartFoods: [], // 当前商家的购物车中所有food数组
   },
   mutations: {
     /* 
@@ -134,7 +136,10 @@ export default  {
       const result = await reqShop(id)
       if(result.code===0) {
         const shop = result.data
-        commit(RECEIVE_SHOP, {shop})
+        // 读取得到当前商家的购物车food数组
+        const cartFoods = getCartFoods(shop)
+
+        commit(RECEIVE_SHOP, {shop, cartFoods})
       }
     },
 
