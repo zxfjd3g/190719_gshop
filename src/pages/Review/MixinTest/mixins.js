@@ -1,13 +1,12 @@
 export const myMixin = {
-  
-  data() {
+  data () {
     return {
-      a: 'a111',
+      a: 'atguigu',
     }
   },
-
+  
   computed: {
-    length() {
+    length () {
       return this.a.length
     }
   }

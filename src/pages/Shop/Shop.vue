@@ -22,6 +22,8 @@
   import ShopHeader from '@/components/ShopHeader/ShopHeader'
   export default {
 
+    name: 'Shop',
+
     props: ['id'],
 
     mounted () {

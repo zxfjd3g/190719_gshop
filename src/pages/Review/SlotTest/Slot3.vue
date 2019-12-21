@@ -1,11 +1,15 @@
 <template>
   <ul>
-    <li v-for="(todo, index) in todos" :key="index">
-      <!-- slot标签的属性会传递给父组件 -->
-      <slot :todo="todo">
-        <span>{{todo.text}}</span>
-      </slot>
-    </li>
+    <li
+    v-for="todo in todos"
+    v-bind:key="todo.id"
+  >
+    <slot :todo="todo"> <!-- 将todo交给外部使用者 -->
+      <!-- 这里是回退内容(fallback content) -->
+      <span>{{todo.text}}</span>
+    </slot>
+  </li>
+     
   </ul>
 </template>
 

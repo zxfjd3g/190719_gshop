@@ -6,16 +6,17 @@
     <component :is="currentComp"/>
 
    <h2>缓存组件</h2>
-    <keep-alive>
-      <component :is="currentComp"/>
-    </keep-alive>
+   <keep-alive>
+     <component :is="currentComp"/>
+   </keep-alive>
     
  
     <h2>异步组件</h2>
-    <async-component1></async-component1>
-    <!-- <async-component2></async-component2>
-    <async-component3></async-component3> -->
-    <async-component4></async-component4>
+    <async-component1/>
+    <async-component2/>
+    <async-component3/>
+    <async-component4/>
+
   </div>
 </template>
 
@@ -41,19 +42,20 @@
     // 拆分到不同的 bundle 中，然后通过 Ajax 请求加载。
     setTimeout(() => {
       require(['./AsyncComponent2.vue'], resolve)
-    }, 1000);
+    }, 2000);
   })
 
-  Vue.component(
+  Vue.component( // 全局异步组件
     'async-component3',
     // `import` 函数返回一个 Promise.
     () => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           import('./AsyncComponent2.vue').then(resolve)
-        }, 1000);
+        }, 3000);
       })
     }
+    // () => import('./AsyncComponent2.vue')
   )
   // Promise.resolve(value)
   // Promise.resolveDelay(value, time)
@@ -63,20 +65,20 @@
 
     data () {
       return {
-        currentComp: 'DynamicComponent2'
+        currentComp: 'DynamicComponent1'
       }
     },
 
     methods: {
       toggle () {
-        this.currentComp = this.currentComp==='DynamicComponent2' ? 'DynamicComponent1' : 'DynamicComponent2'
+        this.currentComp = this.currentComp==='DynamicComponent1' ? 'DynamicComponent2': 'DynamicComponent1'
       }
     },
 
     components: {
       DynamicComponent1,
       DynamicComponent2,
-      'async-component4': () => import('./AsyncComponent2.vue')
+      'async-component4': () => import('./AsyncComponent2.vue') // 局部异步组件
     }
   }
 </script>
