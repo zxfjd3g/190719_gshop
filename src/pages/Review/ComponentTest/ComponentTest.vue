@@ -48,12 +48,17 @@
   Vue.component( // 全局异步组件
     'async-component3',
     // `import` 函数返回一个 Promise.
-    () => {
+    /* () => {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           import('./AsyncComponent2.vue').then(resolve)
         }, 3000);
       })
+    } */
+    (resolve) => {
+      setTimeout(() => {
+        import('./AsyncComponent2.vue').then(resolve)
+      }, 3000);
     }
     // () => import('./AsyncComponent2.vue')
   )

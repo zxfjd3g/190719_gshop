@@ -32,15 +32,17 @@
     beforeCreate () {
       console.log('beforeCreate()', this.title)
     },
-
+    // 实现了数据代理/数据响应式
     created () {
       console.log('created()', this.title)
-      this.title = '标题222'
+      // this.title = '标题222'
     },
 
     beforeMount () {
       console.log('beforeMount()', this.$refs.title)
     },
+
+    // 初始化显示
 
     mounted () {
       console.log('mounted()', this.$refs.title)
@@ -49,6 +51,8 @@
     beforeUpdate () {
       console.log('beforeUpdate()', this.title, this.$refs.title.textContent)
     },
+
+    // 更新界面
 
     updated () {
       console.log('updated()', this.title, this.$refs.title.textContent)
@@ -61,6 +65,8 @@
     destroyed () {
       console.log('destroyed()')
     },
+
+    // 路由组件用上了<keep-alive></keep-alive>
 
     activated () {
       console.log('activated()')

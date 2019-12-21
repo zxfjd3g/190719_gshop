@@ -4,6 +4,7 @@
     <button @click="update1">更新1</button> &nbsp;
     <button @click="update2">更新2</button>&nbsp;
     <button @click="update3">更新3</button>&nbsp;
+    <button @click="update4">更新4</button>&nbsp;
 
     <p>a==={{a}}</p>
     <p>b==={{b}}</p>
@@ -19,8 +20,8 @@
 
   export default {
     data () {
-      this.b = 'b11' 
-      return { 
+      this.b = 'b11' // data中没有, 不是响应式的
+      return { // 组件对象上的a/c/c.d属性都是响应的
         a: 'a11',
         c: {
           d: 'd111'
@@ -30,7 +31,7 @@
 
     methods: {
       update1 () {
-       // this.a = 'a22'
+       this.a = 'a22'
        this.c.d = 'd222'
       },
 
@@ -41,6 +42,10 @@
       update3 () {
         // this.c.e = 'c2222'
         this.$set(this.c, 'e', 'c222')
+      },
+
+      update4 () {
+        this.c.e = 'eeeee'
       }
     },
 
