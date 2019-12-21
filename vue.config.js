@@ -4,7 +4,7 @@ const px2rem = require('postcss-px2rem') // postcss的一个插件
 module.exports = {
   // 只能写vue封装的配置
 
-  // runtimeCompiler: true,
+  runtimeCompiler: true,
   // 关闭EsLint的规则
   lintOnSave: false,
 
