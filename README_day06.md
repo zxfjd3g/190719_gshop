@@ -6,6 +6,8 @@
 ## 2. 动态显示指定商家信息
 ### 1). 路由处理
     a. 路由的params参数
+        注册路由: /shop/:id
+        传递参数: '/shop/1' / {path: '/shop/1'} / {name: 'shop', params: {id: 1}}
     b. 将params参数转换成props
     c. 处理带params参数的子路由和<router-link>
     d: 自动跳转路由: redirect配置

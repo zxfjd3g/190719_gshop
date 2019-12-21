@@ -2,10 +2,30 @@
 所有路由配置的数组
 */
 
-import MSite from '@/pages/MSite/MSite'
-import Search from '@/pages/Search/Search'
-import Order from '@/pages/Order/Order'
-import Profile from '@/pages/Profile/Profile'
+// import MSite from '@/pages/MSite/MSite' // 静态引入: 打包时引入
+// import Search from '@/pages/Search/Search'
+// import Order from '@/pages/Order/Order'
+// import Profile from '@/pages/Profile/Profile'
+
+/* 
+路由组件懒加载:
+    1). 在打包时路由组件会被单独打包(代码分割: code split)
+    2). 默认不请求加载路由组件打包文件, 当请求需要路由组件时才请求加载
+1. import动态引入: 
+    import(模块路径)
+    结果: 被引入的模块会被单独打包(代码分割: code split)
+2. 配置的路由组件是函数(返回动态加载的路由组件模块)
+    函数开始是不执行(开始不请求加载单独打包的路由组件模块代码)
+    当请求对应路径需要显示组件界面时, 去加载路由组件打包文件
+
+作用: 减小首屏需要加载的js文件 ==> 显示更快
+*/
+const MSite = () => import('@/pages/MSite/MSite')
+const Search = () => import('@/pages/Search/Search')
+const Order = () => import('@/pages/Order/Order')
+const Profile = () => import('@/pages/Profile/Profile')
+
+
 import Login from '@/pages/Login/Login'
 import Shop from '@/pages/Shop/Shop'
 import Goods from '@/pages/Shop/Goods'
@@ -29,7 +49,8 @@ import LifeTest from '@/pages/Review/LifeTest/LifeTest.vue'
 export default [
   {
     path: '/msite',
-    component: MSite,
+    // component: MSite,
+    component: () => import('@/pages/MSite/MSite'),
     meta: {
       isShowFooter: true
     }
